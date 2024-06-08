@@ -18,7 +18,9 @@ def dfg(a, b):
     return df2
 
 
-def norm1(df, umi, const = np.linalg.norm(umi)):
+def norm1(df, umi, const = None):
+    if const is None:
+        const = np.linalg.norm(umi)
     df1 = df.T
     norm = np.linalg.norm(umi)
     print(norm)
