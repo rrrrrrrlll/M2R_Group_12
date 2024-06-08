@@ -81,8 +81,8 @@ def linfitplot(x,y):
 
 
 def lse(a, b, norm = norm2):
-    x = g_log(norm(dfg(a,b)))[0]
-    y = g_log(norm(dfg(a,b)))[1]
+    x = g_log(dfg(a,b), norm = norm)[0]
+    y = g_log(dfg(a,b), norm = norm)[1]
 
     X = np.vstack([np.ones(len(x)), x]).T
     # Compute the least squares estimates using the normal equation
