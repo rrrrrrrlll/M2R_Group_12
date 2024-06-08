@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pymc as pm
 import matplotlib.pyplot as plt
+from scipy.stats import nbinom, chisquare
 
 
 def dfg(a, b):
@@ -22,8 +23,7 @@ def norm1(df, umi, const = None):
     if const is None:
         const = np.linalg.norm(umi)
     df1 = df.T
-    norm = np.linalg.norm(umi)
-    print(norm)
+    print(np.linalg.norm(umi))
     umi1 = umi / const
     for i in range(len(umi1)):
         df1[i] = df1[i] / umi1[i]
@@ -48,6 +48,18 @@ def g_log(df_n, norm = norm2):
 def log_gene_plot(df_n, norm = norm2):
     log_gene_mean, log_gene_var = g_log(df_n, norm)
     plt.scatter(log_gene_mean,log_gene_var)
+
+
+def meanvarplot(seq1):
+    seq = seq1.T
+    list_mean = [np.mean(seq.iloc[i]) for i in range(13)]
+    list_var = [np.var(seq.iloc[i]) for i in range(13)]
+    x = np.linspace(0,min(max(list_mean),max(list_var)),num = 1000)
+    plt.plot(x,x)
+    plt.scatter(list_mean, list_var)
+    plt.show()
+    print(list_var)
+    print(list_mean)
 
 
 def linfitplot(x,y):
@@ -113,9 +125,7 @@ def lse(a, b, norm = norm2):
     plt.show()
 
 
-import numpy as np
-import pandas as pd
-from scipy.stats import nbinom, chisquare
+
 def negative_binomial_gof(data, bins=None):
     """
     Perform a goodness-of-fit test to check if the data follows a negative binomial distribution.
@@ -132,7 +142,7 @@ def negative_binomial_gof(data, bins=None):
     """
     # Ensure data is a numpy array
     
-    
+
     # Step 1: Calculate mean and variance of the data
     mean = np.mean(data)
     variance = np.var(data)
