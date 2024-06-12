@@ -36,6 +36,13 @@ def norm2(df, s_n = 1000):
         df1.iloc[i] = df1.iloc[i] / listfinal[i] * s_n
     return df1
 
+def norm3(df, s_n = 1000):
+    df1 = df
+    listfinal = [sum(df.iloc[i]) for i in range(len(df))]
+    for i in range(len(df)):
+        df1.iloc[i] /= (listfinal[i] - df1.iloc[i]) * s_n
+    return df1
+
 
 def g_log(df_n, norm = norm2):
     df_final = norm(df_n).T
